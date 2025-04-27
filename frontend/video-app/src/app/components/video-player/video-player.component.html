@@ -1,0 +1,95 @@
+<app-header></app-header>
+
+<div class="video-player-container">
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && video" class="video-content">
+    <div class="main-content">
+      <div class="video-container">
+        <video [src]="video.videoUrl" controls autoplay class="video-element"></video>
+      </div>
+
+      <div class="video-info">
+        <h1 class="video-title">{{ video.title }}</h1>
+        
+        <div class="video-meta">
+          <div class="video-stats">
+            <span class="views">{{ getFormattedViews(video.views) }}</span>
+            <span class="upload-date" *ngIf="video.uploadedAt">• {{ getFormattedDate(video.uploadedAt) }}</span>
+          </div>
+          
+          <div class="action-buttons">
+            <button mat-icon-button (click)="likeVideo()" class="like-button">
+              <mat-icon>thumb_up</mat-icon>
+              <span class="count">{{ video.likes || 0 }}</span>
+            </button>
+            <button mat-icon-button (click)="dislikeVideo()" class="dislike-button">
+              <mat-icon>thumb_down</mat-icon>
+              <span class="count">{{ video.dislikes || 0 }}</span>
+            </button>
+            <button mat-icon-button class="share-button">
+              <mat-icon>share</mat-icon>
+              <span>Share</span>
+            </button>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+        
+        <div class="channel-info" *ngIf="video.user">
+          <div class="channel-avatar">
+            <img *ngIf="video.user.profilePictureUrl" [src]="video.user.profilePictureUrl" alt="Channel avatar">
+            <mat-icon *ngIf="!video.user.profilePictureUrl">account_circle</mat-icon>
+          </div>
+          <div class="channel-details">
+            <a [routerLink]="['/user', video.user.id]" class="channel-name">{{ video.user.username }}</a>
+            <button mat-raised-button color="primary" class="subscribe-button">Subscribe</button>
+          </div>
+        </div>
+        
+        <div class="video-description" *ngIf="video.description">
+          <p>{{ video.description }}</p>
+        </div>
+      </div>
+
+      <div class="comments-section">
+        <h3>Comments</h3>
+        
+        <div class="add-comment">
+          <mat-form-field appearance="outline" class="comment-input">
+            <input matInput placeholder="Add a comment..." [(ngModel)]="newComment" name="comment">
+          </mat-form-field>
+          <button mat-raised-button color="primary" [disabled]="!newComment.trim()" (click)="submitComment()">Comment</button>
+        </div>
+        
+        <app-comment-section [comments]="comments"></app-comment-section>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <h3>Related Videos</h3>
+      <div class="related-videos">
+        <div *ngFor="let relatedVideo of relatedVideos" class="related-video-item">
+          <a [routerLink]="['/video', relatedVideo.id]" class="related-video-link">
+            <div class="related-thumbnail">
+              <img *ngIf="relatedVideo.thumbnailUrl" [src]="relatedVideo.thumbnailUrl" alt="{{ relatedVideo.title }}">
+              <div *ngIf="!relatedVideo.thumbnailUrl" class="placeholder-thumbnail">
+                <mat-icon>movie</mat-icon>
+              </div>
+            </div>
+            <div class="related-info">
+              <h4 class="related-title">{{ relatedVideo.title }}</h4>
+              <p class="related-channel" *ngIf="relatedVideo.user">{{ relatedVideo.user.username }}</p>
+              <p class="related-stats">
+                {{ getFormattedViews(relatedVideo.views) }}
+                <span *ngIf="relatedVideo.uploadedAt">• {{ getFormattedDate(relatedVideo.uploadedAt) }}</span>
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
