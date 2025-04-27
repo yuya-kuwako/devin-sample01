@@ -1,7 +1,7 @@
 <div class="comments-list" *ngIf="comments.length > 0">
   <div *ngFor="let comment of comments" class="comment-item">
     <div class="comment-avatar">
-      <img *ngIf="comment.user?.profilePictureUrl" [src]="comment.user.profilePictureUrl" alt="User avatar">
+      <img *ngIf="comment.user?.profilePictureUrl" [src]="comment.user?.profilePictureUrl" alt="User avatar">
       <mat-icon *ngIf="!comment.user?.profilePictureUrl">account_circle</mat-icon>
     </div>
     
