@@ -1,0 +1,33 @@
+<div class="comments-list" *ngIf="comments.length > 0">
+  <div *ngFor="let comment of comments" class="comment-item">
+    <div class="comment-avatar">
+      <img *ngIf="comment.user?.profilePictureUrl" [src]="comment.user.profilePictureUrl" alt="User avatar">
+      <mat-icon *ngIf="!comment.user?.profilePictureUrl">account_circle</mat-icon>
+    </div>
+    
+    <div class="comment-content">
+      <div class="comment-header">
+        <a [routerLink]="['/user', comment.user?.id]" class="comment-author">{{ comment.user?.username || 'Anonymous' }}</a>
+        <span class="comment-date" *ngIf="comment.createdAt">{{ getFormattedDate(comment.createdAt) }}</span>
+      </div>
+      
+      <p class="comment-text">{{ comment.content }}</p>
+      
+      <div class="comment-actions">
+        <button mat-icon-button (click)="likeComment(comment)" class="like-button">
+          <mat-icon>thumb_up</mat-icon>
+          <span class="count">{{ comment.likes || 0 }}</span>
+        </button>
+        <button mat-icon-button (click)="dislikeComment(comment)" class="dislike-button">
+          <mat-icon>thumb_down</mat-icon>
+          <span class="count">{{ comment.dislikes || 0 }}</span>
+        </button>
+        <button mat-button class="reply-button">Reply</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="comments.length === 0" class="no-comments">
+  <p>No comments yet. Be the first to comment!</p>
+</div>

@@ -1,0 +1,20 @@
+<mat-card class="video-card" [routerLink]="['/video', video.id]">
+  <div class="thumbnail-container">
+    <img *ngIf="video.thumbnailUrl" [src]="video.thumbnailUrl" alt="{{ video.title }}" class="thumbnail">
+    <div *ngIf="!video.thumbnailUrl" class="placeholder-thumbnail">
+      <mat-icon>movie</mat-icon>
+    </div>
+  </div>
+  
+  <mat-card-content class="video-info">
+    <h3 class="video-title">{{ video.title }}</h3>
+    
+    <div class="video-meta">
+      <span class="channel-name" *ngIf="video.user">{{ video.user.username }}</span>
+      <div class="video-stats">
+        <span class="views">{{ getFormattedViews(video.views) }}</span>
+        <span class="upload-date" *ngIf="video.uploadedAt">• {{ getFormattedDate(video.uploadedAt) }}</span>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,46 @@
+<app-header></app-header>
+
+<div class="profile-container">
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && user" class="profile-content">
+    <div class="profile-header">
+      <div class="profile-avatar">
+        <img *ngIf="user.profilePictureUrl" [src]="user.profilePictureUrl" alt="Profile picture">
+        <mat-icon *ngIf="!user.profilePictureUrl" class="default-avatar">account_circle</mat-icon>
+      </div>
+      
+      <div class="profile-info">
+        <h1 class="username">{{ user.username }}</h1>
+        <div class="stats">
+          <span class="video-count">{{ videos.length }} videos</span>
+          <span *ngIf="user.createdAt" class="join-date">Joined {{ getFormattedDate(user.createdAt) }}</span>
+        </div>
+        <p *ngIf="user.bio" class="bio">{{ user.bio }}</p>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    
+    <div class="videos-section">
+      <h2>Videos</h2>
+      
+      <div *ngIf="videos.length === 0" class="no-videos">
+        <p>No videos uploaded yet.</p>
+      </div>
+      
+      <div *ngIf="videos.length > 0" class="video-grid">
+        <app-video-card *ngFor="let video of videos" [video]="video"></app-video-card>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="!isLoading && !user" class="not-found">
+    <mat-icon>error</mat-icon>
+    <h2>User not found</h2>
+    <p>The user you're looking for doesn't exist or has been removed.</p>
+    <button mat-raised-button color="primary" routerLink="/">Go to Homepage</button>
+  </div>
+</div>

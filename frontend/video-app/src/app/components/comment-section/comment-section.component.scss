@@ -1,0 +1,91 @@
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.comment-item {
+  display: flex;
+  gap: 12px;
+}
+
+.comment-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e0e0e0;
+}
+
+.comment-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.comment-avatar mat-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  color: #909090;
+}
+
+.comment-content {
+  flex: 1;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.comment-author {
+  font-weight: 500;
+  text-decoration: none;
+  color: inherit;
+}
+
+.comment-date {
+  font-size: 12px;
+  color: #606060;
+}
+
+.comment-text {
+  margin: 0 0 8px 0;
+  white-space: pre-line;
+}
+
+.comment-actions {
+  display: flex;
+  align-items: center;
+}
+
+.like-button, .dislike-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+}
+
+.count {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.reply-button {
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.no-comments {
+  padding: 20px;
+  text-align: center;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}

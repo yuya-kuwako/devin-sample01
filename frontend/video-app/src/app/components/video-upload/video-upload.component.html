@@ -1,0 +1,89 @@
+<app-header></app-header>
+
+<div class="upload-container">
+  <h1 class="upload-title">Upload Video</h1>
+  
+  <div *ngIf="errorMessage" class="error-message">
+    <mat-icon>error</mat-icon>
+    <span>{{ errorMessage }}</span>
+  </div>
+  
+  <div *ngIf="isUploading" class="upload-progress">
+    <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+    <p class="progress-text">Uploading... {{ uploadProgress }}%</p>
+  </div>
+  
+  <div *ngIf="!isUploading" class="upload-form">
+    <div class="file-upload-section">
+      <div class="video-upload">
+        <h3>Select Video</h3>
+        <div class="file-input-container">
+          <button mat-raised-button color="primary" (click)="videoFileInput.click()">
+            <mat-icon>video_library</mat-icon>
+            Select Video File
+          </button>
+          <input #videoFileInput type="file" accept="video/*" (change)="onVideoFileSelected($event)" style="display: none;">
+          <span *ngIf="videoFile" class="file-name">{{ videoFile.name }}</span>
+        </div>
+      </div>
+      
+      <div class="thumbnail-upload">
+        <h3>Select Thumbnail (Optional)</h3>
+        <div class="file-input-container">
+          <button mat-raised-button color="accent" (click)="thumbnailFileInput.click()">
+            <mat-icon>image</mat-icon>
+            Select Thumbnail
+          </button>
+          <input #thumbnailFileInput type="file" accept="image/*" (change)="onThumbnailFileSelected($event)" style="display: none;">
+          <span *ngIf="thumbnailFile" class="file-name">{{ thumbnailFile.name }}</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="video-details">
+      <h3>Video Details</h3>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Title</mat-label>
+        <input matInput [(ngModel)]="video.title" placeholder="Enter video title" required>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput [(ngModel)]="video.description" placeholder="Enter video description" rows="5"></textarea>
+      </mat-form-field>
+      
+      <div class="tags-section">
+        <h4>Tags</h4>
+        <div class="tag-input">
+          <mat-form-field appearance="outline" class="tag-field">
+            <mat-label>Add a tag</mat-label>
+            <input matInput [(ngModel)]="tagInput" placeholder="Enter tag" (keyup.enter)="addTag()">
+          </mat-form-field>
+          <button mat-icon-button color="primary" (click)="addTag()">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        
+        <div class="tags-list" *ngIf="video.tags && video.tags.length > 0">
+          <mat-chip-set>
+            <mat-chip *ngFor="let tag of video.tags" (removed)="removeTag(tag)">
+              {{ tag }}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+          </mat-chip-set>
+        </div>
+      </div>
+    </div>
+    
+    <div class="upload-actions">
+      <button mat-raised-button color="warn" routerLink="/">Cancel</button>
+      <button mat-raised-button color="primary" (click)="uploadVideo()" [disabled]="!videoFile || !video.title.trim()">
+        <mat-icon>cloud_upload</mat-icon>
+        Upload Video
+      </button>
+    </div>
+  </div>
+</div>
