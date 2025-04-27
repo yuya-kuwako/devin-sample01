@@ -1,5 +1,6 @@
 package com.example.videosharing.service;
 
+import com.example.videosharing.dto.UserDto;
 import com.example.videosharing.dto.VideoDto;
 import com.example.videosharing.model.User;
 import com.example.videosharing.model.Video;
