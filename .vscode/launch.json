@@ -1,0 +1,23 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Frontend (Angular)",
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceFolder}/frontend/video-app"
+        },
+        {
+            "type": "java",
+            "request": "launch",
+            "name": "Launch Backend (Spring Boot)",
+            "mainClass": "com.example.videosharing.VideoSharingApplication",
+            "projectName": "backend",
+            "cwd": "${workspaceFolder}/backend"
+        }
+    ]
+}
